@@ -9,8 +9,20 @@
     {
       "userId": 2,
       "title": "운동하기",
-      "completed": false,
+      "completed": true,
       "id": 4
+    },
+    {
+      "userId": 1,
+      "title": "운동하기2",
+      "completed": true,
+      "id": 5
+    },
+    {
+      "userId": 1,
+      "title": "asd",
+      "completed": true,
+      "id": 6
     }
   ]
 }
