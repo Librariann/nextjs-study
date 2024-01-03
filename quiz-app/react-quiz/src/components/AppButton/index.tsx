@@ -8,7 +8,7 @@ interface AppButtonProps {
   className?: string;
   disabled?: boolean;
   width?: string;
-  onClick?: (e?: React.MouseEvent) => void;
+  onClick?: (e?: any) => void;
 }
 
 const AppButton: React.FC<AppButtonProps> = ({
