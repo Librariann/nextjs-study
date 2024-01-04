@@ -5,7 +5,7 @@ import AppButton from "../AppButton";
 interface QuestionCardProps {
   questions: string;
   category: string;
-  totalquestions?: number;
+  totalQuestions?: number;
   questionNumber?: number;
   checkAnswer: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
@@ -13,7 +13,7 @@ interface QuestionCardProps {
 const QuestionCard: React.FC<QuestionCardProps> = ({
   questions,
   category,
-  totalquestions,
+  totalQuestions,
   questionNumber,
   checkAnswer,
 }) => {
@@ -21,7 +21,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
     <>
       <Box bg="white" w="100%">
         <Box mb={6} fontSize="md" fontWeight="bold" textTransform="uppercase">
-          Your Progress: {questionNumber}/{totalquestions}
+          Your Progress: {questionNumber}/{totalQuestions}
         </Box>
         <Box fontSize="sm" mb={1}>
           {category}
