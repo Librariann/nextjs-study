@@ -1,7 +1,30 @@
+import { Spinner } from "@chakra-ui/react";
 import React from "react";
 
-const Spinner = () => {
-  return <div>Spinner</div>;
+interface SpinnerProps {
+  thickness: string;
+  speed: string;
+  color: string;
+  emptyColor: string;
+  size: string;
+}
+
+const AppSpinner: React.FC<SpinnerProps> = ({
+  thickness,
+  speed,
+  color,
+  emptyColor,
+  size,
+}) => {
+  return (
+    <Spinner
+      thickness={thickness}
+      speed={speed}
+      color={color}
+      emptyColor={emptyColor}
+      size={size}
+    />
+  );
 };
 
-export default Spinner;
+export default AppSpinner;
