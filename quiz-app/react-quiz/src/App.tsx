@@ -14,7 +14,8 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [questionNumber, setQuestionNumber] = useState(0);
   const [score, setScore] = useState(0);
-  const [gameOver, setGameOver] = useState(false);
+  const [gameOver, setGameOver] = useState(false)HH\\;
+  const [hello, setHello] = useState(false);
 
   useEffect(() => {
     const fetchQuestion = async () => {
@@ -28,10 +29,45 @@ function App() {
     fetchQuestion();
   }, []);
 
-  const startQuizGame = () => {};
-  const checkAnswer = () => {};
-  const nextQuestion = () => {};
-  const replayQuiz = () => {};
+  const startQuizGame = (): void => {
+    setStartQuiz(true);
+  };
+  
+  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
+    if(gameOver) return;
+
+    const chosenAnswer = e.currentTarget.innerText;
+    const correct = questions[questionNumber]?.correct_answer === chosenAnswer;
+
+    //정답이면 score + 1
+
+    if(correct) setScore((previous) => previous + 1);
+
+    const answerObject = {
+      question: questions[questionNumber]?.question,
+      answer: chosenAnswer,
+      correct,
+      correctAnswer: questions[questionNumber]?.correct_answer
+    }
+
+    setUserAnswer((previous) => [...previous, answerObject]);
+  };
+  const nextQuestion = ():void => {
+    const nextQuestion = questionNumber + 1;
+    if(totalQuestions === nextQuestion) {
+      setGameOver(true);
+    }
+
+    setQuestionNumber(nextQuestion);
+  };
+  const replayQuiz = (): void => {
+    setStartQuiz(false);
+    setGameOver(false);
+    setQuestionNumber(0);
+    setScore(0);
+    setUserAnswer([]);
+  };
 
   return (
     <main>
