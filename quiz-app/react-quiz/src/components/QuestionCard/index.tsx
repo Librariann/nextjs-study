@@ -23,14 +23,14 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
         <Box mb={6} fontSize="md" fontWeight="bold" textTransform="uppercase">
           Your Progress: {questionNumber}/{totalQuestions}
         </Box>
-        <Box fontSize="sm" mb={1}>
+        <Box fontSize="sm" mt={4} mb={4}>
           {category}
         </Box>
         <Heading as="h1" size="lg">
           <p dangerouslySetInnerHTML={{ __html: questions }}></p>
         </Heading>
         <Flex direction="column">
-          <Box w="100%" mt={4}>
+          <Box w="100%" mt={4} mb={4}>
             <AppButton
               colorScheme="purple"
               variant="outline"
@@ -40,7 +40,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
             />
           </Box>
           <Spacer />
-          <Box>
+          <Box mb={4}>
             <AppButton
               colorScheme="purple"
               variant="outline"
