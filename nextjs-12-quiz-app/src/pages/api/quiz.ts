@@ -22,6 +22,7 @@ export default function handler(
 ) {
   try {
     const { page } = req.query as { page: string };
+
     if (!page) {
       res.send(questionAndAnswers);
     }

@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import { TQuiz, TSavedAnswer } from "@/types/quiz";
+import Link from "next/link";
+import React, { ChangeEvent, useState } from "react";
 import useSWR from "swr";
 
 const fetcher = (url: string) => {
-  fetch(url).then((res) => res.json);
+  fetch(url).then((res) => res.json());
 };
 
 const Quiz = () => {
   const [pageIndex, setPageIndex] = useState(0);
   const { data, error } = useSWR(`/api/quiz?page=${pageIndex}`, fetcher);
+  console.log(data);
+
+  const [answerd, setAnswerd] = useState<TSavedAnswer>({});
 
   if (error) {
     return (
@@ -26,7 +31,58 @@ const Quiz = () => {
 
   const { quiz, next, prev, page, total } = data;
 
-  return <div>Quiz</div>;
+  const addAnswer = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    const latestAnswers = { ...answerd, [name]: value };
+    setAnswerd(latestAnswers);
+    localStorage.setItem("quiz", JSON.stringify(latestAnswers));
+  };
+
+  return (
+    <>
+      <div>
+        <p>
+          {parseInt(page) + 1} of {total}
+        </p>
+      </div>
+      <div>
+        <p>{quiz.question}</p>
+        <ul>
+          {quiz.options.map((option: string, index: number) => (
+            <li key={index}>
+              <input
+                type="radio"
+                name={quiz.id.toString()}
+                onChange={(e) => addAnswer(e)}
+                value={option}
+                checked={answerd[quiz.id] === option}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        {prev ? (
+          <button onClick={() => setPageIndex(pageIndex - 1)}>이전 문제</button>
+        ) : (
+          <Link href="/">취소</Link>
+        )}
+        {next ? (
+          <button
+            onClick={() => setPageIndex(pageIndex + 1)}
+            disabled={answerd[quiz.id] === undefined}
+            className={
+              answerd[quiz.id] === undefined ? "disabledBtn" : "activeBtn"
+            }
+          >
+            다음문제
+          </button>
+        ) : (
+          answerd[quiz.id] !== undefined && <Link href="/result">끝</Link>
+        )}
+      </div>
+    </>
+  );
 };
 
 export default Quiz;
