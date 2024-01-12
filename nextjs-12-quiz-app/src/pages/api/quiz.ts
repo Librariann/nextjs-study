@@ -14,6 +14,12 @@ const questionAndAnswers: TQuiz[] = [
     options: ["1", "2", "3", "4"],
     answer: "4",
   },
+  {
+    id: 3,
+    question: "3+3 ?",
+    options: ["4", "5", "6", "7"],
+    answer: "6",
+  },
 ];
 
 export default function handler(
@@ -22,7 +28,6 @@ export default function handler(
 ) {
   try {
     const { page } = req.query as { page: string };
-
     if (!page) {
       res.send(questionAndAnswers);
     }

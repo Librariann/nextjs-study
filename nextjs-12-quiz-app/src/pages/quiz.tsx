@@ -1,16 +1,17 @@
-import { TQuiz, TSavedAnswer } from "@/types/quiz";
+import { TSavedAnswer } from "@/types/quiz";
 import Link from "next/link";
 import React, { ChangeEvent, useState } from "react";
 import useSWR from "swr";
+import styles from "@/styles/Quiz.module.css";
 
-const fetcher = (url: string) => {
-  fetch(url).then((res) => res.json());
-};
+const fetcher = (url: string) =>
+  fetch(url).then((res) => {
+    return res.json();
+  });
 
 const Quiz = () => {
   const [pageIndex, setPageIndex] = useState(0);
   const { data, error } = useSWR(`/api/quiz?page=${pageIndex}`, fetcher);
-  console.log(data);
 
   const [answerd, setAnswerd] = useState<TSavedAnswer>({});
 
@@ -40,7 +41,7 @@ const Quiz = () => {
 
   return (
     <>
-      <div>
+      <div className={styles.info}>
         <p>
           {parseInt(page) + 1} of {total}
         </p>
@@ -49,7 +50,7 @@ const Quiz = () => {
         <p>{quiz.question}</p>
         <ul>
           {quiz.options.map((option: string, index: number) => (
-            <li key={index}>
+            <li key={index} className={styles.option}>
               <input
                 type="radio"
                 name={quiz.id.toString()}
@@ -57,11 +58,12 @@ const Quiz = () => {
                 value={option}
                 checked={answerd[quiz.id] === option}
               />
+              {option}
             </li>
           ))}
         </ul>
       </div>
-      <div>
+      <div className={styles.navBtns}>
         {prev ? (
           <button onClick={() => setPageIndex(pageIndex - 1)}>이전 문제</button>
         ) : (
