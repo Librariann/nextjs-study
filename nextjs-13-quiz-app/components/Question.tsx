@@ -2,6 +2,7 @@
 
 import { IQuestion } from "@/utils/types";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import { animated, useTransition } from "@react-spring/web";
 import React, { useState } from "react";
 
 interface Props {
@@ -15,6 +16,15 @@ const Question = ({ question, withId, checkEnabled, getAnswer }: Props) => {
   const [answer, setAnswer] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
   const [isTrue, setIsTrue] = useState(false);
+
+  const transitions = useTransition(isAnswered, {
+    from: { opacity: 0, height: 0 },
+    enter: { opacity: 1, height: 40 },
+    leave: { opacity: 0, height: 0 },
+    config: {
+      duration: 200,
+    },
+  });
 
   return (
     <div
@@ -63,6 +73,24 @@ const Question = ({ question, withId, checkEnabled, getAnswer }: Props) => {
           <span className="w-full">{option.text}</span>
         </label>
       ))}
+      {checkEnabled &&
+        transitions(
+          (styles, item) =>
+            answer > 0 &&
+            !item && (
+              <animated.div style={{ overflow: "hidden", ...styles }}>
+                <div
+                  onClick={() => {
+                    setIsAnswered(true);
+                    setIsTrue(question.answer === answer);
+                  }}
+                  className={`bg-blue-600 p-2 text-slate-50 rounded text-center shadow hover:bg-blue-500 duration-200 cursor-pointer`}
+                >
+                  답변을 확인하세요.
+                </div>
+              </animated.div>
+            )
+        )}
     </div>
   );
 };
