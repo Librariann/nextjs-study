@@ -1,5 +1,4 @@
 "use client";
-
 import { IState } from "@/utils/types";
 import React, { useState } from "react";
 import SelectState from "./SelectState";
