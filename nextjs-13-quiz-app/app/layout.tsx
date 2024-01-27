@@ -25,12 +25,14 @@ export default function RootLayout({
         >
           <Header />
           {children}
-          <footer
-            className={
-              "max-w-7xl mx-auto bg-orange-500 p-10 text-center text-slate-200 "
-            }
-          ></footer>
         </div>
+        <footer
+          className={
+            "max-w-7xl mx-auto bg-orange-500 p-10 text-center text-slate-200 "
+          }
+        >
+          Footer
+        </footer>
       </body>
     </html>
   );
