@@ -7,7 +7,10 @@ const getWeather = (city: string) =>
   });
 
 const useWeather = (city: string) => {
-  const { data, ...rest } = useQuery(["weather", city], () => getWeather(city));
+  const { data, ...rest } = useQuery({
+    queryKey: ["weather", city],
+    queryFn: () => getWeather(city),
+  });
 
   return {
     ...rest,
