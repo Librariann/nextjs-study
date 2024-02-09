@@ -2,6 +2,7 @@ import React from "react";
 import useWeather from "../utils/useWeather";
 import { useParams } from "react-router-dom";
 import CurrentTime from "./CurrentTime";
+import { Bottom, ThisDayWrapper, Top } from "./style";
 
 const ThisDay = () => {
   const { id } = useParams();
@@ -36,9 +37,29 @@ const ThisDay = () => {
   }
 
   return (
-    <div>
-      <CurrentTime />
-    </div>
+    <ThisDayWrapper>
+      {isLoading ? (
+        "Loading"
+      ) : (
+        <>
+          <>
+            <Top>
+              <div>
+                <h2>{temperature}도</h2>
+                <h3>Now</h3>
+              </div>
+              <img src={imageSrc} alt="weather-icon" />
+            </Top>
+            <Bottom>
+              <CurrentTime />
+              <div>
+                {cityName} - {data?.sys.country}
+              </div>
+            </Bottom>
+          </>
+        </>
+      )}
+    </ThisDayWrapper>
   );
 };
 
