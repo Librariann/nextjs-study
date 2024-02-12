@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import openWeather from "./openWeather";
 import { useMemo } from "react";
 
-export interface Day {
+export interface IDay {
   date: string;
   forecast: { [x: string]: any }[];
 }
@@ -18,7 +18,7 @@ const useWeatherForecast = (city: string) => {
     queryFn: () => getWeatherForecast(city),
   });
   const days = useMemo(() => {
-    const days: Record<string, Day> = {};
+    const days: Record<string, IDay> = {};
 
     data?.list?.forEach((forecast) => {
       const date = forecast.dt_txt.split(" ")[0];
