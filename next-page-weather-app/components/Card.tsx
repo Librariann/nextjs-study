@@ -1,7 +1,12 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
-const Card = () => {
-  return <div>Card</div>;
+type Props = {
+  children?: ReactNode;
+  className?: string;
+};
+
+const Card = ({ children, className }: Props) => {
+  return <section className={`${className}`}>{children}</section>;
 };
 
 export default Card;
