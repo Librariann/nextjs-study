@@ -1,8 +1,10 @@
 import Head from "next/head";
-import React from "react";
+import React, { ReactNode } from "react";
 import Card from "./Card";
 
-const Layout = ({ children }) => {
+
+
+const Layout = ({ children }:{children?: ReactNode}) => {
   return (
     <>
       <Head>
